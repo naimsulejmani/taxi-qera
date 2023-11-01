@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/drivers")
+@CrossOrigin(origins = "*")
 public class DriverController {
     private final DriverService driverService;
 
@@ -17,8 +18,7 @@ public class DriverController {
     }
 
     @GetMapping
-    public List<Driver> getAllDrivers(@RequestParam String name, @RequestParam String surname,
-                                      @RequestParam String licenceCategory) {
+    public List<Driver> getAllDrivers() {
 
         return driverService.getAll();
     }
