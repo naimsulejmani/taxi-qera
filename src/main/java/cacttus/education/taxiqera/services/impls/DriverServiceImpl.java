@@ -21,7 +21,7 @@ public class DriverServiceImpl implements DriverService {
                     LocalDate.now().minusYears(30), LocalDate.now(), true,
                     LocalDateTime.now(), "admin");
             Driver d2 = new Driver(2, "Nikolin", "Gegaj", "C",
-                    LocalDate.now().minusYears(22), LocalDate.now(), true,
+                    LocalDate.now().minusYears(22), LocalDate.now(), false,
                     LocalDateTime.now(), "admin");
             drivers.add(d1);
             drivers.add(d2);
