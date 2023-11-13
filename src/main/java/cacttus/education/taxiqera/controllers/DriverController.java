@@ -1,6 +1,7 @@
 package cacttus.education.taxiqera.controllers;
 
-import cacttus.education.taxiqera.models.Driver;
+import cacttus.education.taxiqera.models.DriverChangeStatusDto;
+import cacttus.education.taxiqera.models.DriverDto;
 import cacttus.education.taxiqera.services.DriverService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,25 +19,31 @@ public class DriverController {
     }
 
     @GetMapping
-    public List<Driver> getAllDrivers() {
+    public List<DriverDto> getAllDrivers() {
 
         return driverService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Driver getDriverById(@PathVariable long id) {
+    public DriverDto getDriverById(@PathVariable long id) {
         return driverService.getById(id);
     }
 
     @PostMapping
-    public void addDriver(@RequestBody Driver driver) {
+    public void addDriver(@RequestBody DriverDto driverDto) {
 
-        driverService.add(driver);
+        driverService.add(driverDto);
     }
 
     @PutMapping("/{id}")
-    public void updateDriver(@PathVariable long id, @RequestBody Driver driver) {
-        driverService.update(id, driver);
+    public void updateDriver(@PathVariable long id, @RequestBody DriverDto driverDto) {
+        driverService.update(id, driverDto);
+
+    }
+
+    @PatchMapping("/{id}")
+    public void updateDriverStatus(@PathVariable long id, @RequestBody DriverChangeStatusDto driverDto) {
+        driverService.changeStatus(id, driverDto);
 
     }
 
