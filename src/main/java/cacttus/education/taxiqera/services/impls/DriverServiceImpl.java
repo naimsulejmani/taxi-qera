@@ -1,17 +1,15 @@
 package cacttus.education.taxiqera.services.impls;
 
-import cacttus.education.taxiqera.entities.DriverEntity;
+import cacttus.education.taxiqera.mappers.DriverMapStructMapper;
 import cacttus.education.taxiqera.mappers.DriverMapper;
 import cacttus.education.taxiqera.models.DriverChangeStatusDto;
 import cacttus.education.taxiqera.models.DriverDto;
 import cacttus.education.taxiqera.repositories.DriverRepository;
 import cacttus.education.taxiqera.services.DriverService;
 import jakarta.persistence.EntityNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,17 +17,23 @@ public class DriverServiceImpl implements DriverService {
 
     private final DriverRepository repository;
     private final DriverMapper mapper;
+    private final ModelMapper modelMapper;
+    private final DriverMapStructMapper driverMap;
 
 
-    public DriverServiceImpl(DriverRepository repository, DriverMapper mapper) {
+    public DriverServiceImpl(DriverRepository repository, DriverMapper mapper, ModelMapper modelMapper, DriverMapStructMapper driverMap) {
         this.repository = repository;
         this.mapper = mapper;
+        this.modelMapper = modelMapper;
+        this.driverMap = driverMap;
     }
 
     @Override
     public boolean add(DriverDto driverDto) {
 
-        var entity = mapper.toEntity(driverDto);
+        // var entity = mapper.toEntity(driverDto);
+        // var entity = modelMapper.map(driverDto, DriverEntity.class);
+        var entity = driverMap.toEntity(driverDto);
         repository.save(entity);
         return true;
 
@@ -45,8 +49,12 @@ public class DriverServiceImpl implements DriverService {
 //        }
 //        return driverdtos;
 
+        var lista = repository.findAllByNameOrSurnameOrderByNameAscSurnameAsc("Naim","Berisha");
 
-        return repository.findAll().stream().map(mapper::toDto).toList();
+
+//        return repository.findAll().stream().map(mapper::toDto).toList();
+        //  return repository.findAll().stream().map(item -> modelMapper.map(item, DriverDto.class)).toList();
+        return repository.findAll().stream().map(driverMap::toDto).toList();
     }
 
     @Override
@@ -55,7 +63,9 @@ public class DriverServiceImpl implements DriverService {
         if (optionalEntity.isEmpty())
             throw new EntityNotFoundException("Driver not found with id " + id);
         var entity = optionalEntity.get();
-        var dto = mapper.toDto(entity);
+        //var dto = mapper.toDto(entity);
+        //var dto = modelMapper.map(entity, DriverDto.class);
+        var dto = driverMap.toDto(entity);
         return dto;
     }
 
