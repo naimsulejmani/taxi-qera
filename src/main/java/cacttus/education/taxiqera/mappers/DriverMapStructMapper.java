@@ -3,7 +3,6 @@ package cacttus.education.taxiqera.mappers;
 import cacttus.education.taxiqera.entities.DriverEntity;
 import cacttus.education.taxiqera.models.DriverDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")

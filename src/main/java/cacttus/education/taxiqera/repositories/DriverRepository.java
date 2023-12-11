@@ -17,4 +17,16 @@ public interface DriverRepository extends JpaRepository<DriverEntity, Long> {
 //    @Query(value = "FROM DriverEntity WHERE ")
 //    public List<DriverEntity> getByPalidhje(boolean isActive);
 
+
+    @Query("SELECT d FROM DriverEntity d WHERE d.name=?1 OR d.surname=?2 ORDER BY d.name, d.surname")
+    List<DriverEntity> getRaporti1(String name, String surname);
+
 }
+
+
+
+
+
+
+
+

@@ -31,6 +31,9 @@ public class DriverController {
 
     @PostMapping
     public void addDriver(@RequestBody DriverDto driverDto) {
+        if(driverDto.getId()<0) {
+            throw new RuntimeException("GABIM");
+        }
 
         driverService.add(driverDto);
     }

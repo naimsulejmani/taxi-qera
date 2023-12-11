@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class DriverMapper {
+public class DriverMapper implements MapEntityToDto<DriverEntity, DriverDto> {
+    @Override
     public DriverEntity toEntity(DriverDto from) {
         var to = new DriverEntity();
         to.setId(from.getId());
@@ -23,6 +24,7 @@ public class DriverMapper {
         return to;
     }
 
+    @Override
     public DriverDto toDto(DriverEntity from) {
         var to = new DriverDto();
         to.setId(from.getId());
