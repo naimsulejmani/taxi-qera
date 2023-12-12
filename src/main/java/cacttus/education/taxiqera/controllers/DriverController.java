@@ -3,6 +3,7 @@ package cacttus.education.taxiqera.controllers;
 import cacttus.education.taxiqera.models.DriverChangeStatusDto;
 import cacttus.education.taxiqera.models.DriverDto;
 import cacttus.education.taxiqera.services.DriverService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -30,7 +31,7 @@ public class DriverController {
     }
 
     @PostMapping
-    public void addDriver(@RequestBody DriverDto driverDto) {
+    public void addDriver(@Valid @RequestBody DriverDto driverDto) {
         if(driverDto.getId()<0) {
             throw new RuntimeException("GABIM");
         }
